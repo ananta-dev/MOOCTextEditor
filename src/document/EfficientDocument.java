@@ -54,6 +54,29 @@ public class EfficientDocument extends Document {
 		
 		// TODO: Finish this method.  Remember the countSyllables method from 
 		// Document.  That will come in handy here.  isWord defined above will also help.
+		
+		// System.out.println(tokens);
+		
+		numWords = 0;  
+		numSentences = 0;  
+		numSyllables = 0;  
+		// boolean previousIsWord = false;
+		
+		for (String s : tokens) {
+			if (isWord(s)) {
+				numWords++;
+				numSyllables += countSyllables(s);
+				// previousIsWord = true;
+			}
+			else {
+				// if (previousIsWord)
+					numSentences++;
+				// previousIsWord = false;
+			}
+		}
+		
+		if (tokens.size()>0 && isWord(tokens.get(tokens.size()-1)))
+			numSentences++;
 	}
 
 	
@@ -73,7 +96,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSentences() {
 		//TODO: write this method.  Hint: It's simple
-		return 0;
+		return numSentences;
 	}
 
 	
@@ -94,7 +117,7 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumWords() {
 		//TODO: write this method.  Hint: It's simple
-	    return 0;
+	    return numWords;
 	}
 
 
@@ -116,19 +139,20 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSyllables() {
         //TODO: write this method.  Hint: It's simple
-        return 0;
+        return numSyllables;
 	}
 	
 	// Can be used for testing
 	// We encourage you to add your own tests here.
 	public static void main(String[] args)
 	{
-	    testCase(new EfficientDocument("This is a test.  How many???  "
+		testCase(new EfficientDocument("sentence, with, lots, of, commas.!  "
+                + "(And some poaren)).  The output is: 7.5."), 15, 11, 4);
+		testCase(new EfficientDocument("This is a test.  How many???  "
                 + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
                 16, 13, 5);
         testCase(new EfficientDocument(""), 0, 0, 0);
-        testCase(new EfficientDocument("sentence, with, lots, of, commas.!  "
-                + "(And some poaren)).  The output is: 7.5."), 15, 11, 4);
+        
         testCase(new EfficientDocument("many???  Senteeeeeeeeeences are"), 6, 3, 2); 
         testCase(new EfficientDocument("Here is a series of test sentences. Your program should "
 				+ "find 3 sentences, 33 words, and 49 syllables. Not every word will have "
