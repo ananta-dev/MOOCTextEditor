@@ -52,7 +52,20 @@ public class DocumentBenchmarking {
 			
 			long endTime = System.nanoTime();
 			double estTime = (endTime-startTime)/1000000000.0;
+			System.out.print(estTime +"\t");
+			
+			startTime = System.nanoTime();
+			
+			for (int i=1;i<=trials;i++) {
+				EfficientDocument eDoc = new EfficientDocument(theText);
+				eDoc.getFleschScore();
+			}
+			
+			endTime = System.nanoTime();
+			estTime = (endTime-startTime)/1000000000.0;
 			System.out.println(estTime +"\t");
+			
+			
 			// numToCheck holds the number of characters that you should read from the 
 			// file to create both a BasicDocument and an EfficientDocument.  
 			
